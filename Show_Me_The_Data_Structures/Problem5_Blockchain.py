@@ -103,8 +103,29 @@ def test_case_3():
     blockchain.add_block("Block 1")
     blockchain.print_chain()
 
+# Test case 4: Edge case with same timestamps
+
+
+def test_case_4():
+    print("Test Case 4: Same Timestamp Case")
+    blockchain = Blockchain()
+
+    # Force the same timestamp for two consecutive blocks
+    fixed_timestamp = time.gmtime()
+
+    # Manually append blocks with the same timestamp
+
+    blockchain.listBlock.append(
+        Block(fixed_timestamp, "Block 0", "0"))
+    previous_hash = blockchain.listBlock.tail.value.hash
+    blockchain.listBlock.append(
+        Block(fixed_timestamp, "Block 1", previous_hash))
+
+    blockchain.print_chain()
+
 
 if __name__ == "__main__":
     test_case_1()
     test_case_2()
     test_case_3()
+    test_case_4()

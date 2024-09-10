@@ -96,7 +96,42 @@ def test_case_3():
     print(is_user_in_group("user", rootGroup))
 
 
+def test_case_4():
+    print("Test case 4: Empty group or user not found")
+
+    # Create an empty group with no users or sub-groups
+    emptyGroup = Group("EmptyGroup")
+
+    # Test with empty group and a user that doesn't exist
+    print(is_user_in_group("non_existent_user", emptyGroup))  # Expected: False
+
+    # Add a user to the group and test for a different non-existent user
+    emptyGroup.add_user("existing_user")
+    print(is_user_in_group("non_existent_user", emptyGroup))  # Expected: False
+
+    # Check for the existing user
+    print(is_user_in_group("existing_user", emptyGroup))  # Expected: True
+
+
+def test_case_5():
+    print("Test case 5: Group with no parent")
+
+    # A single group with no sub-groups
+    loneGroup = Group("LoneGroup")
+
+    # Add a user to the group
+    loneGroup.add_user("lone_user")
+
+    # Check if the user is found in the group
+    print(is_user_in_group("lone_user", loneGroup))  # Expected: True
+
+    # Check for a non-existent user in the group with no sub-groups
+    print(is_user_in_group("non_existent_user", loneGroup))  # Expected: False
+
+
 if __name__ == "__main__":
     test_case_1()
     test_case_2()
     test_case_3()
+    test_case_4()
+    test_case_5()

@@ -26,6 +26,15 @@ class HuffmanTree:
             else:
                 frequencyDict[char] = 1
 
+        # Handle the single unique character case
+        if len(frequencyDict) == 1:
+            unique_char = list(frequencyDict.keys())[0]
+            print("unique_char: ", unique_char)
+            # Assign either '0' or '1' to the unique character
+            encodedData = "0" * len(data)  # or "1" * len(data)
+            huffmanTree = Node(unique_char, frequencyDict[unique_char])
+            return encodedData, huffmanTree
+
         # 2. Build priority queue soft by frequency
 
         priorityQueue = []
@@ -78,6 +87,11 @@ class HuffmanTree:
     def huffman_decoding(self, encodedData, huffmanTree):
         if not encodedData or huffmanTree is None:
             return ""
+
+        # Special case: if the tree has only one node (i.e., only one unique character)
+        if huffmanTree.left is None and huffmanTree.right is None:
+            # Since the entire encoded data corresponds to the single character, we return that character
+            return huffmanTree.char * len(encodedData)
 
         decodedData = []
         currentNode = huffmanTree
@@ -137,9 +151,23 @@ def test_case_4():
     assert data == decodedData
 
 
+# Add test case encode and decode a string of the same character repeated multiple times like "AAAAAAA"
+
+
+def test_case_5():
+    data = "AAAAAAAAA"
+    huffmanTree = HuffmanTree()
+    encodedData, tree = huffmanTree.huffman_encoding(data)
+    print("Encoded Data:", encodedData)
+    decodedData = huffmanTree.huffman_decoding(encodedData, tree)
+    print("Decoded Data:", decodedData)
+    assert data == decodedData
+
+
 # Example usage:
 if __name__ == "__main__":
     test_case_1()
     test_case_2()
     test_case_3()
     test_case_4()
+    test_case_5()

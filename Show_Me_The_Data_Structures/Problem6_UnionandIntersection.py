@@ -163,9 +163,24 @@ def test_case_5():
           intersection(linked_list_1, linked_list_2))
 
 
+def test_case_6():
+    # Test Case 6 : one list are empty
+    linked_list_1 = LinkedList()
+    linked_list_2 = LinkedList()
+    element_1 = [1, 2, 3]
+
+    for i in element_1:
+        linked_list_1.append(i)
+
+    print("Union:", union(linked_list_1, linked_list_2))
+    print("Intersection (Empty Lists):",
+          intersection(linked_list_1, linked_list_2))
+
+
 if __name__ == "__main__":
     test_case_1()
     test_case_2()
     test_case_3()
     test_case_4()
     test_case_5()
+    test_case_6()

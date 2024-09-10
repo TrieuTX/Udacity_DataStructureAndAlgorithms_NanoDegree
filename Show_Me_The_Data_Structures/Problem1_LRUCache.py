@@ -40,6 +40,7 @@ class LRUCache():
         self.doubleLinkList = DoubleLinkedList()
 
     def get(self, key):
+        # Retrieve item from provided key. Return -1 if nonexistent.
         if key in self.cache:
             node = self.cache[key]
             self.doubleLinkList.removeNode(node)
@@ -48,6 +49,7 @@ class LRUCache():
         return -1
 
     def set(self, key, value):
+        # Set the value if the key is not present in the cache. If the cache is at capacity remove the oldest item.
         if key in self.cache:
             node = self.cache[key]
             self.doubleLinkList.removeNode(node)
@@ -119,3 +121,28 @@ if __name__ == "__main__":
     # head - 5:5 - 1:1 - 4:4 - tail
     print(our_cache2.get(6))  # return -1
     # head - 5:5 - 1:1 - 4:4 - tail
+
+    print('Testcase 4: Repeated access to the same value')
+    our_cache3 = LRUCache(2)
+    our_cache3.set(1, 1)
+    our_cache3.set(2, 2)
+    print(our_cache3.get(1))  # returns 1, moves 1 to front
+    print(our_cache3.get(1))  # returns 1, should remain at front
+    print(our_cache3.get(1))  # returns 1, should remain at front
+
+    print('Testcase 5: Accessing invalid keys')
+    print(our_cache3.get(3))  # returns -1, 3 is not in the cache
+
+    print('Testcase 6: Negative and Null keys')
+    our_cache4 = LRUCache(2)
+    our_cache4.set(None, 5)  # should handle None gracefully
+    print(our_cache4.get(None))  # returns 5
+    our_cache4.set(-1, 6)
+    print(our_cache4.get(-1))  # returns 6
+
+    print('Testcase 7: Capacity 1 test')
+    our_cache5 = LRUCache(1)
+    our_cache5.set(10, 10)
+    our_cache5.set(20, 20)  # 10 should be evicted
+    print(our_cache5.get(10))  # returns -1
+    print(our_cache5.get(20))  # returns 20

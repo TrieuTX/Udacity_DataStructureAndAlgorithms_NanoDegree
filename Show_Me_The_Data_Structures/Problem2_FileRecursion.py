@@ -87,15 +87,25 @@ def test_case_3():
     print(f"Test Case 3 - Expected: {expected}, Result: {result}")
     assert result == expected
 
-# Test Case 4: files ending in .py
+# Test Case 4: files ending in .xyz,
 
 
 def test_case_4():
     path = './testdir'
-    suffix = '.py'
+    suffix = '.xyz'  # Assuming no files end with .xyz
     expected = []
     result = find_files(suffix, path)
     print(f"Test Case 4 - Expected: {expected}, Result: {result}")
+    assert result == expected
+
+
+def test_case_5():
+    path = './invalidpath'
+    suffix = '.c'
+    expected = []  # return [] if path invalid
+
+    result = find_files(suffix, path)
+    print(f"Test Case 5 - Expected: {expected}, Result: {result}")
     assert result == expected
 
 
@@ -104,3 +114,4 @@ if __name__ == "__main__":
     test_case_2()
     test_case_3()
     test_case_4()
+    test_case_5()
